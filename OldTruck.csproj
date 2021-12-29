@@ -80,4 +80,9 @@
     <None Include="Resources\oldtruck.unity3d" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del "E:\SteamLibrary\steamapps\common\My Summer Car\mods\OldTruck.dll"
+copy "F:\MSC\OldTruck\bin\Debug\OldTruck.dll" "E:\SteamLibrary\steamapps\common\My Summer Car\mods"
+start steam://rungameid/516750</PostBuildEvent>
+  </PropertyGroup>
 </Project>
