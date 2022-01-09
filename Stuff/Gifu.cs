@@ -15,7 +15,7 @@ namespace OldTruck.Stuff {
 
         public AudioSource LowAudioSource;
         public AudioSource HighAudioSource;
-
+        
         private void Start() {
             GifuRadioPivot = gameObject.transform.Find("RadioPivot").gameObject;
             GifuLod = gameObject.transform.Find("LOD").gameObject;
@@ -51,21 +51,13 @@ namespace OldTruck.Stuff {
                 }
             }
 
-            if((bool)OldTruck.RemoveGearStickToggle.Value) {
-                try {
-                    GifuLod.transform.Find("Dashboard/GearLever").gameObject.SetActive(false);
-                }
-                catch(Exception e) {
-                    OldTruck.PrintE("Gear lever",e);
-                }
-            }
-
             if((bool)OldTruck.ReplaceShitTankWithLogsToggle.Value) {
                 try {
                     GifuMesh.transform.Find("shit_tank 1").gameObject.SetActive(false);
                     GifuLod.transform.Find("ShitTank").gameObject.SetActive(false);
                     GifuLod.transform.Find("work_lights").gameObject.SetActive(false);
                     transform.Find("ShitTank").gameObject.SetActive(false);
+                    transform.Find("ActivateHose").gameObject.SetActive(false);
                 }
                 catch(Exception e) {
                     OldTruck.PrintE("Disabling ShitTank error",e);
@@ -84,7 +76,7 @@ namespace OldTruck.Stuff {
                     logs.transform.parent = GifuMesh.transform;
                     logs.transform.position = Vector3.zero;
                     logs.transform.rotation = Quaternion.identity;
-                    logs.transform.localPosition = new Vector3(-0.08f,1.52f,1.37F);
+                    logs.transform.localPosition = new Vector3(-0.08f,1.52f,1.47F);
                     logs.transform.localRotation = new Quaternion(-5.960465E-08f,2.107342E-08f,-2.107343E-08f,1f);
                     logs.transform.localScale = new Vector3(0.95f,0.98f,0.74f);
                 }
@@ -166,6 +158,10 @@ namespace OldTruck.Stuff {
                     truckInterior.GetComponent<Renderer>().sharedMaterial = OldTruck.Paint4;
                     truckInterior.Find("truck_interior_parts").GetComponent<Renderer>().sharedMaterial =
                         OldTruck.Paint4;
+                    GifuLod.transform.Find("Dashboard/GearLever/Pivot/Lever/truck_dash_gearstick")
+                        .GetComponent<Renderer>().sharedMaterial = OldTruck.Paint4;
+                    GifuLod.transform.Find("Dashboard/GearLever/Pivot/Lever/Range/RangeButton/truck_dash_gearstick 1")
+                        .GetComponent<Renderer>().sharedMaterial = OldTruck.Paint4;
                 }
             }
             catch(Exception e) {
@@ -173,19 +169,25 @@ namespace OldTruck.Stuff {
             }
 
             try {
-                GifuLod.transform.Find("truck_accessories").gameObject.SetActive(false);
+                if ((bool)OldTruck.HideMudFlapsToggle.Value) {    
+                    GifuLod.transform.Find("truck_accessories").gameObject.SetActive(false);
+                }
             }
             catch(Exception e) {
                 OldTruck.PrintE("Remove mudflaps",e);
             }
 
             try {
-                GifuLod.transform.GetChild(3).gameObject.SetActive(false);
-                GifuLod.transform.GetChild(4).gameObject.SetActive(false);
+                if ((bool)OldTruck.HideSPZToggle.Value) {
+                    GifuLod.transform.GetChild(3).gameObject.SetActive(false);
+                    GifuLod.transform.GetChild(4).gameObject.SetActive(false);  
+                }
             }
             catch(Exception e) {
                 OldTruck.PrintE("Remove SPZ",e);
             }
+
+
         }
 
         private void Update() {
