@@ -7,7 +7,7 @@ namespace OldTruck {
     public class OldTruck : Mod {
         public override string ID => "OldTruck";
         public override string Name => "OldTruck";
-        public override string Author => "MLDKYT";
+        public override string Author => "アカツキ";
         public override string Version => "1.0";
 
         public override bool UseAssetsFolder => false;
